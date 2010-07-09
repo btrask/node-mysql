@@ -28,7 +28,7 @@ exports.createConnection = function() {
 					  config.mysql.password,
 					  config.mysql.database,
 					  config.mysql.port);
-    exports.exceptClass(mysql.Connection, conn);
+    exports.expectClass(mysql.Connection, conn);
     return conn;
 };
 
@@ -38,7 +38,7 @@ var createMockConnection = function(mysql, stream) {
 				    'nodejs_mysql',
 				    'nodejs_mysql',
 				    33306);
-    exports.exceptClass(mysql.Connection, conn);
+    exports.expectClass(mysql.Connection, conn);
     conn.addListener("connect", function() {
 	conn.protocol.conn.socket.write(stream);
     });
@@ -70,10 +70,10 @@ var run = function(testfuncs){
 }
 exports.run = run;
 
-var exceptClass = function(klass,obj) {
-    assert.equal(klass.contructor, obj.constractor);
+var expectClass = function(klass,obj) {
+    assert.equal(klass, obj.constructor);
 }
-exports.exceptClass = exceptClass;
+exports.expectClass = expectClass;
 
 /*
 node-mysql
