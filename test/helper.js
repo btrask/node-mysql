@@ -1,7 +1,6 @@
 var sys = require("sys");
 var assert = require("assert");
 
-var config = require('./config');
 var mysql = require('../lib/mysql');
 
 var scope = function(target, func) {
@@ -21,12 +20,6 @@ var was_called_back = function() {
   pending_callbacks--;
 }
 exports.was_called_back = was_called_back;
-
-exports.createConnection = function() {
-    var conn = new mysql.Connection(config.mysql);
-    exports.expectClass(mysql.Connection, conn);
-    return conn;
-};
 
 var createMockConnection = function(mysql, stream) {
     var conn = new mysql.Connection({hostname: 'localhost', 
