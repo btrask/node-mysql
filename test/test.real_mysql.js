@@ -10,6 +10,25 @@ var mysql = require('../lib/mysql');
 var Promise = require('../lib/mysql/node-promise').Promise;
 
 var all_tests = [];
+
+var test_ignoredPort = function() {
+    var promise = new Promise();
+    var conn = new mysql.Connection(config.mysql_ignore_port);
+    helper.expect_callback();
+    conn.connect(function() {
+	helper.was_called_back();
+	conn.close();
+	promise.emitError();
+    }, function(error) {
+	helper.was_called_back();
+	assert.equal(61 /* ECONNREFUSED */, error.errno);
+	conn.close();
+	promise.emitSuccess();
+    });
+    return promise;
+};
+all_tests.push(["test_ignoredPort", test_ignoredPort]);
+
 var test_createConnection = function() {
     var promise = new Promise();
     var conn = new mysql.Connection(config.mysql);
@@ -21,7 +40,7 @@ var test_createConnection = function() {
     });
     return promise
 };
-all_tests.push(["createConnection", test_createConnection]);
+all_tests.push(["test_createConnection", test_createConnection]);
 
 var test_result1 = function() {
     var promise = new Promise();
