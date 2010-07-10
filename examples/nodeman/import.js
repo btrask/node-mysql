@@ -10,7 +10,7 @@ CREATE DATABASE nodeman DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 GRANT ALL ON nodeman.* TO nodeman@localhost IDENTIFIED BY "nodeman";
 */
 
-var conn = new mysql.Connection(config.mysql.hostname, config.mysql.username, config.mysql.password, config.mysql.database, config.mysql.port);
+var conn = new mysql.Connection(config.mysql);
 conn.connect();
 conn.query("CREATE TABLE IF NOT EXISTS functions(id INTEGER AUTO_INCREMENT, module_id INTEGER, name VARCHAR(254), anchor VARCHAR(254), description TEXT, description_html TEXT, PRIMARY KEY (id), FULLTEXT(name), FULLTEXT(description)) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'");
 conn.query("TRUNCATE functions");

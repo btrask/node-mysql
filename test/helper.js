@@ -23,21 +23,17 @@ var was_called_back = function() {
 exports.was_called_back = was_called_back;
 
 exports.createConnection = function() {
-    var conn = new mysql.Connection(config.mysql.hostname, 
-					  config.mysql.username,
-					  config.mysql.password,
-					  config.mysql.database,
-					  config.mysql.port);
+    var conn = new mysql.Connection(config.mysql);
     exports.expectClass(mysql.Connection, conn);
     return conn;
 };
 
 var createMockConnection = function(mysql, stream) {
-    var conn = new mysql.Connection('localhost', 
-				    'nodejs_mysql',
-				    'nodejs_mysql',
-				    'nodejs_mysql',
-				    33306);
+    var conn = new mysql.Connection({hostname: 'localhost', 
+				    username: 'nodejs_mysql',
+				    password: 'nodejs_mysql',
+				    database: 'nodejs_mysql',
+				    port: 33306});
     exports.expectClass(mysql.Connection, conn);
     conn.addListener("connect", function() {
 	conn.protocol.conn.socket.write(stream);

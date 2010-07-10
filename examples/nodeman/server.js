@@ -7,7 +7,7 @@ var querystring = require('querystring');
 var config = require('./config');
 var mysql = require('../../lib/mysql');
 
-var conn = new mysql.Connection(config.mysql.hostname, config.mysql.username, config.mysql.password, config.mysql.database, config.mysql.port);
+var conn = new mysql.Connection(config.mysql);
 conn.connect();
 conn.addListener('close', function(){
     sys.puts("reconnect after 10sec");

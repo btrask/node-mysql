@@ -6,7 +6,7 @@ var mysql = require('../lib/mysql');
 CREATE DATABASE nodejs_mysql  DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 GRANT ALL ON nodejs_mysql.* TO nodejs_mysql@localhost IDENTIFIED BY "nodejs_mysql";
 */
-var conn = new mysql.Connection('localhost','nodejs_mysql', 'nodejs_mysql', 'nodejs_mysql');
+var conn = new mysql.Connection({hostname: 'localhost', username: 'nodejs_mysql', password: 'nodejs_mysql', database: 'nodejs_mysql'});
 conn.connect();
 conn.query("CREATE TEMPORARY TABLE test1(intval INTEGER, strval TEXT, timestampval TIMESTAMP, boolval BOOLEAN);");
 conn.query("INSERT INTO test1 VALUES(1,'a',now(),true);");

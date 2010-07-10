@@ -13,8 +13,8 @@
 * authorize error
 
 
-### Connection(hostname, username, password, dbname, port)
- It return Connectino object. It not connect to mysqld. 
+### Connection({hostname, username, password, dbname, port})
+ It return Connection object. It not connect to mysqld. 
 
 ### Connection.quote(string)
  quote string for SQL.
